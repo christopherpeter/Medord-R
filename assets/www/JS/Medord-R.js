@@ -116,11 +116,10 @@ function main() {
                 }
             }
             var msgwithsameid = new Array();
-
+            var msgwithsameidsorted = new Array();
             // Combining all incomplete messages with commom Sec ID
 
             for (var i = 0; i < InCompletemgs.length; i++) {
-
 
 
                 var secidmsg = InCompletemgs[i];
@@ -139,6 +138,7 @@ function main() {
                 var k = 0;
 
                 msgwithsameid.splice(0, msgwithsameid.length); // clearing array
+                msgwithsameidsorted.splice(0, msgwithsameidsorted.length);
 
                 for (var j = 0; j < incompletefirstmsg.length; j++) {
 
@@ -161,18 +161,29 @@ function main() {
                     var finalarray = new Array();
                     var split1 = new Array();
                     var storemsg = new Array();
-                    
-                    if (msgwithsameid[0].indexOf('More') == -1) {
-                       
-                        finalarray = msgwithsameid.reverse();
-                        
+
+                    for (var z = 0; z < msgwithsameid.length; z++) {
+
+                        for (var m = 0; m < msgwithsameid.length; m++) {
+
+                            var msgpage = msgwithsameid[m].slice(-2, -1);
+
+                           
+
+                            if (msgpage == (z + 1)) {
+                                msgwithsameidsorted.push(msgwithsameid[m]);
+                            }
+
+                        }
+
                     }
-                    else {
-                        
-                        finalarray = msgwithsameid;
-                      
-                    }
-                    // alert(JSON.stringify(finalarray));
+
+
+                    finalarray = msgwithsameidsorted;
+
+
+                   // alert(JSON.stringify(finalarray));
+
                     var z = "";
                     for (var x = 0; x < finalarray.length; x++) {
 
