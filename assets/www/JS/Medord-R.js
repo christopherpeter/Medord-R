@@ -408,7 +408,7 @@ function fnCallQuizEdit(id) {
                 name = arrname[0];
 
                 //alert(arr[4]);
-                alert(JSON.stringify(arr1[5]));
+                //alert(JSON.stringify(arr1[5]));
                 var medarray = new Array();
                 medarray = arr1[5].split(',');
                 //                medarray = arr[4].split(',');
