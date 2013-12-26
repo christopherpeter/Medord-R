@@ -168,7 +168,7 @@ function main() {
 
                             var msgpage = msgwithsameid[m].slice(-2, -1);
 
-                           
+
 
                             if (msgpage == (z + 1)) {
                                 msgwithsameidsorted.push(msgwithsameid[m]);
@@ -182,7 +182,7 @@ function main() {
                     finalarray = msgwithsameidsorted;
 
 
-                   // alert(JSON.stringify(finalarray));
+                    // alert(JSON.stringify(finalarray));
 
                     var z = "";
                     for (var x = 0; x < finalarray.length; x++) {
@@ -281,16 +281,14 @@ function main() {
         }, function (error) { alert("error"); }, "SMSReader", "GetTexts", ["", -1]);
     });
 
-    db.transaction(function (tx) 
-    {
+    db.transaction(function (tx) {
         OnloadMsgData();
 
     });
 
 
 }
-function OnloadMsgData() 
-{
+function OnloadMsgData() {
     //alert('hi');
     var trow2 = "";
     trow2 = trow2 + "<tr style=\"font-size: 11px;\">";
@@ -321,7 +319,7 @@ function OnloadMsgData()
                 //alert('Row count' + res.rows.length);
                 var ss = res.rows.item(i);
                 //alert(ss.status);
-               // alert(ss.Smscontent);
+                // alert(ss.Smscontent);
                 var a = ss.Smscontent.split("|");
 
                 //alert(ss.status);
@@ -348,8 +346,7 @@ function OnloadMsgData()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-$(function () 
-{
+$(function () {
     getOrder();
 });
 var length = 0;
@@ -484,7 +481,7 @@ function hidecross(val) {
 }
 
 function sendreply() {
-    
+
     var Toamt = document.getElementById('Txttotal').value;
     if (Toamt != "") {
         var id = document.getElementById('hidid').value;
@@ -493,8 +490,7 @@ function sendreply() {
         var db = openDatabase('Medord_R', '1.0', 'Medord_R', 2 * 1024 * 1024);
         db.transaction(function sentord(tx) {
             tx.executeSql("select * from MessageContent where id='" + id + "'", [], function querySuccessorddet(tx, res) {
-                for (var i = 0; i < res.rows.length; i++) 
-                {
+                for (var i = 0; i < res.rows.length; i++) {
                     var ss = res.rows.item(i);
                     var Recid = ss.Recid;
                     //alert(Recid);
@@ -536,7 +532,7 @@ function sendreply() {
                         var msg2 = medarray[i] + "(" + availmedi + ")" + ",";
                         output = output + msg2;
                         var fullmsg = "MD " + Recid + ":";
-                        var fullmsg1 = "\n"+"Hi " + name[0] + ","  + msg3 + msg + output;
+                        var fullmsg1 = "\n" + "Hi " + name[0] + "," + msg3 + msg + output;
 
                     }
                     //alert("fullmsg:" + fullmsg);
@@ -556,7 +552,7 @@ function sendreply() {
 
 /*SENDSMS:Function for SMS Sending using Codova-Android SMS Manager Plugin*/
 
-function sendordermsg(fMessage, fMessage1, mobile,ordercontent, mid) {
+function sendordermsg(fMessage, fMessage1, mobile, ordercontent, mid) {
     //alert("Customer no:"+mobile);
     var totallengthofmsg = fMessage.length + fMessage1.length;
     var currentsplitvalue = 140 - fMessage.length;
@@ -596,7 +592,7 @@ function sendordermsg(fMessage, fMessage1, mobile,ordercontent, mid) {
                 smsSendingPlugin.send(mobile, fMessage + message + " {" + (i + 1) + "}", function () {
 
                     $.mobile.changePage($("#MessageContent"));
-                    
+
 
                 }, function () {
                     alert("Message not sent");
@@ -617,27 +613,25 @@ function sendordermsg(fMessage, fMessage1, mobile,ordercontent, mid) {
 
 }
 
-function saveOrder(con, id) 
-{
+function saveOrder(con, id) {
     var tdate = new Date();
     var thours = tdate.getHours();
     var tminutes = tdate.getMinutes();
     var s_id = document.getElementById('hidid').value;
-    
+
     var s = "sent";
-   
+
     var tformattedTime = thours + ':' + tminutes;
     //alert(tformattedTime);
     var dbinsertorddet = window.openDatabase("Medord_R", "1.0", "Medord_R", 2 * 1024 * 1024);
     var qryorddet = 'INSERT INTO OrderDetails (msgid,orddetails,time) VALUES ("' + id + '","' + con + '","' + tformattedTime + '")';
-    dbinsertorddet.transaction(function insertorddetailsDB(tx) 
-    {
+    dbinsertorddet.transaction(function insertorddetailsDB(tx) {
         tx.executeSql(qryorddet);
         tx.executeSql('update MessageContent set status ="' + s + '" where id="' + s_id + '"');
     });
     getOrder();
     OnloadMsgData();
-    
+
 }
 
 function getOrder() {
@@ -646,7 +640,7 @@ function getOrder() {
     var getOrderdbcon = window.openDatabase("Medord_R", "1.0", "Medord_R", 2 * 1024 * 1024);
     getOrderdbcon.transaction(function getord(tx) {
         tx.executeSql('select * from OrderDetails a inner join MessageContent b on a.msgid=b.Recid', [], function querySuccessorddet(txx, res) {
-       
+
             for (var i = 0; i < res.rows.length; i++) {
 
                 var ss = res.rows.item(i);
