@@ -161,7 +161,17 @@ function main() {
                     var finalarray = new Array();
                     var split1 = new Array();
                     var storemsg = new Array();
-                    finalarray = msgwithsameid;
+                    
+                    if (msgwithsameid[0].indexOf('More') == -1) {
+                       
+                        finalarray = msgwithsameid.reverse();
+                        
+                    }
+                    else {
+                        
+                        finalarray = msgwithsameid;
+                      
+                    }
                     // alert(JSON.stringify(finalarray));
                     var z = "";
                     for (var x = 0; x < finalarray.length; x++) {
